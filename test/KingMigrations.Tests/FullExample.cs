@@ -20,7 +20,7 @@ public class FullExample
         var migrationSource = new DirectoryMigrationSource("Migrations");
         migrationSource.AddParser(".sqlite", new SemicolonDelimitedMigrationParser());
 
-        var migrator = new SqliteMigrator();
+        var migrator = new SqliteMigrationApplier();
         await migrator.ApplyMigrationsAsync(connection, migrationSource);
 
         var expectedTables = new[]

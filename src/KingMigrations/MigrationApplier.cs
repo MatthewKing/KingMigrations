@@ -2,7 +2,7 @@
 
 namespace KingMigrations;
 
-public abstract class Migrator
+public abstract class MigrationApplier : IMigrationApplier
 {
     public abstract MigrationTableDefinition TableDefinition { get; }
 

@@ -3,7 +3,7 @@ using KingMigrations.Extensions;
 
 namespace KingMigrations.Sqlite;
 
-public class SqliteMigrator : Migrator
+public class SqliteMigrationApplier : MigrationApplier
 {
     public override MigrationTableDefinition TableDefinition { get; } = new MigrationTableDefinition()
     {

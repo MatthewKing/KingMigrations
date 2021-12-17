@@ -3,7 +3,7 @@ using KingMigrations.Extensions;
 
 namespace KingMigrations.SqlServer;
 
-public class SqlServerMigrator : Migrator
+public class SqlServerMigrationApplier : MigrationApplier
 {
     public override MigrationTableDefinition TableDefinition { get; } = new MigrationTableDefinition()
     {

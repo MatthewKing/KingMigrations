@@ -1,0 +1,4 @@
+﻿-- Id: 3
+-- Description: An example test that drops one of the previous created tables.
+
+drop table "Table3";

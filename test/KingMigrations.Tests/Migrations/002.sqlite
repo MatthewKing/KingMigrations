@@ -1,0 +1,6 @@
+﻿-- Id: 2
+-- Description: An example test that creates another two tables.
+
+create table "Table2" ("Id" INTEGER NOT NULL PRIMARY KEY, "Value" TEXT NOT NULL);
+
+create table "Table3" ("Id" INTEGER NOT NULL PRIMARY KEY, "Value" TEXT NOT NULL);

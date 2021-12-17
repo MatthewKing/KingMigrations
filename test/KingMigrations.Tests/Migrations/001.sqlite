@@ -1,0 +1,4 @@
+﻿-- Id: 1
+-- Description: An example test that creates a table.
+
+create table "Table1" ("Id" INTEGER NOT NULL PRIMARY KEY, "Value" TEXT NOT NULL);

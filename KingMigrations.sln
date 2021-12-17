@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingMigrations", "src\KingMigrations\KingMigrations.csproj", "{209E1199-EC5F-487B-8F4D-EA215E6D4F0D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingMigrations.SqlServer", "src\KingMigrations.SqlServer\KingMigrations.SqlServer.csproj", "{8566D69D-FEB6-48B0-B261-0415D5241A6C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingMigrations.Sqlite", "src\KingMigrations.Sqlite\KingMigrations.Sqlite.csproj", "{B56D4CC7-0FF2-4F78-8638-E69B0B10F4D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingMigrations.Tests", "test\KingMigrations.Tests\KingMigrations.Tests.csproj", "{09FEB49F-C4B9-4612-8C90-1DD687168087}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7771C49A-CA81-4DC2-A178-38CCE2DD9F10}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F6439183-9CAF-480D-850D-0A4AB78E7225}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{209E1199-EC5F-487B-8F4D-EA215E6D4F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{209E1199-EC5F-487B-8F4D-EA215E6D4F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{209E1199-EC5F-487B-8F4D-EA215E6D4F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{209E1199-EC5F-487B-8F4D-EA215E6D4F0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8566D69D-FEB6-48B0-B261-0415D5241A6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8566D69D-FEB6-48B0-B261-0415D5241A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8566D69D-FEB6-48B0-B261-0415D5241A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8566D69D-FEB6-48B0-B261-0415D5241A6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B56D4CC7-0FF2-4F78-8638-E69B0B10F4D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B56D4CC7-0FF2-4F78-8638-E69B0B10F4D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B56D4CC7-0FF2-4F78-8638-E69B0B10F4D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B56D4CC7-0FF2-4F78-8638-E69B0B10F4D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09FEB49F-C4B9-4612-8C90-1DD687168087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FEB49F-C4B9-4612-8C90-1DD687168087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FEB49F-C4B9-4612-8C90-1DD687168087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FEB49F-C4B9-4612-8C90-1DD687168087}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{209E1199-EC5F-487B-8F4D-EA215E6D4F0D} = {7771C49A-CA81-4DC2-A178-38CCE2DD9F10}
+		{8566D69D-FEB6-48B0-B261-0415D5241A6C} = {7771C49A-CA81-4DC2-A178-38CCE2DD9F10}
+		{B56D4CC7-0FF2-4F78-8638-E69B0B10F4D8} = {7771C49A-CA81-4DC2-A178-38CCE2DD9F10}
+		{09FEB49F-C4B9-4612-8C90-1DD687168087} = {F6439183-9CAF-480D-850D-0A4AB78E7225}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3060375-8993-4273-B4CB-1D9DDC436EEE}
+	EndGlobalSection
+EndGlobal

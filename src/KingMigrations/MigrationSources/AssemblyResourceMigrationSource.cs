@@ -2,15 +2,32 @@
 
 namespace KingMigrations.MigrationSources;
 
+/// <summary>
+/// An implementation of <see cref="IMigrationSource"/> that reads migration definitions from embedded resources in an assembly.
+/// </summary>
 public class AssemblyResourceMigrationSource : FileBasedMigrationSource, IMigrationSource
 {
+    /// <summary>
+    /// The assembly to read the migration definitions from.
+    /// </summary>
     private readonly Assembly _assembly;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AssemblyResourceMigrationSource"/> class.
+    /// </summary>
+    /// <param name="assembly">The assembly to read the migration definitions from.</param>
     public AssemblyResourceMigrationSource(Assembly assembly)
     {
         _assembly = assembly;
     }
 
+    /// <summary>
+    /// Gets a list of migration definitions.
+    /// </summary>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains a list of migration definitions.
+    /// </returns>
     public override async Task<IReadOnlyList<Migration>> GetMigrationsAsync()
     {
         var migrations = new List<Migration>();

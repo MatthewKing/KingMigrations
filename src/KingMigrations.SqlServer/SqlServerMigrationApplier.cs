@@ -3,8 +3,14 @@ using KingMigrations.Extensions;
 
 namespace KingMigrations.SqlServer;
 
+/// <summary>
+/// An implementation of <see cref="IMigrationApplier"/> for SQL Server databases.
+/// </summary>
 public class SqlServerMigrationApplier : MigrationApplier
 {
+    /// <summary>
+    /// Gets the migration table definition.
+    /// </summary>
     public override MigrationTableDefinition TableDefinition { get; } = new MigrationTableDefinition()
     {
         TableSchema = "dbo",
@@ -14,6 +20,14 @@ public class SqlServerMigrationApplier : MigrationApplier
         TimestampColumnName = "AppliedOn",
     };
 
+    /// <summary>
+    /// Returns the migration table status.
+    /// </summary>
+    /// <param name="connection">The database connection.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the migration table status.
+    /// </returns>
     protected override async Task<MigrationTableStatus> GetMigrationTableStatusAsync(DbConnection connection)
     {
         using var getTableInfoCommand = connection.CreateCommand();
@@ -43,6 +57,13 @@ public class SqlServerMigrationApplier : MigrationApplier
         return status;
     }
 
+    /// <summary>
+    /// Creates the migration table.
+    /// </summary>
+    /// <param name="connection">The database connection.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// </returns>
     protected override async Task CreateMigrationTableAsync(DbConnection connection)
     {
         var commands = new[]
@@ -74,6 +95,15 @@ public class SqlServerMigrationApplier : MigrationApplier
         transaction.Commit();
     }
 
+    /// <summary>
+    /// Checks whether the specified migration has already been applied.
+    /// </summary>
+    /// <param name="connection">The database connection.</param>
+    /// <param name="migration">The migration to check.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result is true if the migration has already been applied; otherwise, false.
+    /// </returns>
     protected override async Task<bool> CheckIfMigrationIsAlreadyAppliedAsync(DbConnection connection, Migration migration)
     {
         using var sqlCommand = connection.CreateCommand();
@@ -85,6 +115,12 @@ public class SqlServerMigrationApplier : MigrationApplier
         return Convert.ToByte(result) > 0;
     }
 
+    /// <summary>
+    /// Applies the specified migration to the database.
+    /// </summary>
+    /// <param name="connection">The database connection.</param>
+    /// <param name="migration">The migration to apply.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     protected override async Task ApplyMigrationAsync(DbConnection connection, Migration migration)
     {
         using var transaction = connection.BeginTransaction();

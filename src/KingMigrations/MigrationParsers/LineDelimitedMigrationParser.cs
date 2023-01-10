@@ -1,7 +1,18 @@
 ﻿namespace KingMigrations.MigrationParsers;
 
+/// <summary>
+/// An implementation of <see cref="IMigrationParser"/> that uses line breaks to delimit commands.
+/// </summary>
 public class LineDelimitedMigrationParser : IMigrationParser
 {
+    /// <summary>
+    /// Parses a migration definition from the specified text reader.
+    /// </summary>
+    /// <param name="reader">The text reader.</param>
+    /// <returns>
+    /// A task that represents the asynchronous parse operation.
+    /// The task result contains the migration definition.
+    /// </returns>
     public async Task<Migration> ParseMigrationAsync(TextReader reader)
     {
         var migration = new Migration();
@@ -10,7 +21,7 @@ public class LineDelimitedMigrationParser : IMigrationParser
 
         while (true)
         {
-            var line = await reader.ReadLineAsync().ConfigureAwait(false);
+            var line = (await reader.ReadLineAsync().ConfigureAwait(false))?.Trim();
             if (line is null)
             {
                 break;

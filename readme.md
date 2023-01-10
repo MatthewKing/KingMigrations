@@ -33,13 +33,13 @@ create table table_4 (id integer primary key, value text not null);
 3) Run the migrations:
 
 ```csharp
-var migrator = new SqliteMigrator();
+var migrationApplier = new SqliteMigrationApplier();
 var migrationSource = new DirectoryMigrationSource("/path/to/your/migration/directory");
 migrationSource.AddParser(".sql", new SemicolonDelimitedMigrationParser());
 
 using var connection = InitializeYourSqliteDatabaseConnectionHere();
 await connection.OpenAsync();
-await migrator.ApplyMigrationsAsync(connection, migrationSource);
+await migrationApplier.ApplyMigrationsAsync(connection, migrationSource);
 ```
 
 ## License and copyright

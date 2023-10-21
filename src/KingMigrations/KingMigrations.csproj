@@ -14,11 +14,4 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <InternalsVisibleTo Include="KingMigrations.PostgreSql" />
-    <InternalsVisibleTo Include="KingMigrations.Sqlite" />
-    <InternalsVisibleTo Include="KingMigrations.SqlServer" />
-    <InternalsVisibleTo Include="KingMigrations.Tests" />
-  </ItemGroup>
-
 </Project>

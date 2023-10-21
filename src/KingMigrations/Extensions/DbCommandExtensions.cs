@@ -2,7 +2,7 @@
 
 namespace KingMigrations.Extensions;
 
-internal static class DbCommandExtensions
+public static class DbCommandExtensions
 {
     public static void AddParameter(this DbCommand command, string name, object? value)
     {

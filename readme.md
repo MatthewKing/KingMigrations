@@ -7,6 +7,7 @@ A really lightweight and simple database migration library. This is not intended
 * [KingMigrations](https://www.nuget.org/packages/KingMigrations)
 * [KingMigrations.Sqlite](https://www.nuget.org/packages/KingMigrations.Sqlite)
 * [KingMigrations.SqlServer](https://www.nuget.org/packages/KingMigrations.SqlServer)
+* [KingMigrations.PostgreSql](https://www.nuget.org/packages/KingMigrations.PostgreSql)
 
 ## A quick example
 

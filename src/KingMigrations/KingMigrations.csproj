@@ -15,15 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>KingMigrations.Sqlite</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>KingMigrations.SqlServer</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>KingMigrations.Tests</_Parameter1>
-    </AssemblyAttribute>
+    <InternalsVisibleTo Include="KingMigrations.PostgreSql" />
+    <InternalsVisibleTo Include="KingMigrations.Sqlite" />
+    <InternalsVisibleTo Include="KingMigrations.SqlServer" />
+    <InternalsVisibleTo Include="KingMigrations.Tests" />
   </ItemGroup>
 
 </Project>

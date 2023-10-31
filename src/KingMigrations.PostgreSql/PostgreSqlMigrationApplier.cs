@@ -14,10 +14,10 @@ public class PostgreSqlMigrationApplier : MigrationApplier
     public override MigrationTableDefinition TableDefinition { get; } = new MigrationTableDefinition()
     {
         TableSchema = "public",
-        TableName = "VersionInfo",
-        IdColumnName = "Version",
-        DescriptionColumnName = "Description",
-        TimestampColumnName = "AppliedOn",
+        TableName = "version_info",
+        IdColumnName = "version",
+        DescriptionColumnName = "description",
+        TimestampColumnName = "applied_on",
     };
 
     /// <summary>
@@ -69,7 +69,7 @@ public class PostgreSqlMigrationApplier : MigrationApplier
         var commands = new[]
         {
             $"CREATE TABLE \"{TableDefinition.TableSchema}\".\"{TableDefinition.TableName}\" (\"{TableDefinition.IdColumnName}\" INTEGER NOT NULL, \"{TableDefinition.TimestampColumnName}\" TIMESTAMP WITH TIME ZONE NOT NULL, \"{TableDefinition.DescriptionColumnName}\" TEXT);",
-            $"CREATE UNIQUE INDEX \"UC_{TableDefinition.TableName}\" ON \"{TableDefinition.TableSchema}\".\"{TableDefinition.TableName}\" USING btree (\"{TableDefinition.IdColumnName}\" ASC);",
+            $"CREATE UNIQUE INDEX \"{TableDefinition.TableName}_{TableDefinition.IdColumnName}_idx\" ON \"{TableDefinition.TableSchema}\".\"{TableDefinition.TableName}\" USING btree (\"{TableDefinition.IdColumnName}\" ASC);",
         };
 
         using var transaction = connection.BeginTransaction();

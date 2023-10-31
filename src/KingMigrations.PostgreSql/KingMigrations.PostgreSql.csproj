@@ -4,6 +4,7 @@
     <PackageId>KingMigrations.PostgreSql</PackageId>
     <Title>KingMigrations (PostgreSQL)</Title>
     <Description>PostgreSQL migrator for KingMigrations.</Description>
+    <VersionPrefix>1.2.0</VersionPrefix>
   </PropertyGroup>
 
   <PropertyGroup>

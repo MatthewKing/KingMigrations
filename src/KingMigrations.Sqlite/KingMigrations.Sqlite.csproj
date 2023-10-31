@@ -4,6 +4,7 @@
     <PackageId>KingMigrations.Sqlite</PackageId>
     <Title>KingMigrations (SQLite)</Title>
     <Description>SQLite migrator for KingMigrations.</Description>
+    <VersionPrefix>1.1.0</VersionPrefix>
   </PropertyGroup>
 
   <PropertyGroup>

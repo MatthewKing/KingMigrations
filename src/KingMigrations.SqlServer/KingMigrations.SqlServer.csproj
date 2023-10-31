@@ -4,6 +4,7 @@
     <PackageId>KingMigrations.SqlServer</PackageId>
     <Title>KingMigrations (SQL Server)</Title>
     <Description>SQL Server migrator for KingMigrations.</Description>
+    <VersionPrefix>1.1.0</VersionPrefix>
   </PropertyGroup>
 
   <PropertyGroup>

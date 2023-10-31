@@ -4,6 +4,7 @@
     <PackageId>KingMigrations</PackageId>
     <Title>KingMigrations</Title>
     <Description>Super simple database migrations.</Description>
+    <VersionPrefix>1.1.0</VersionPrefix>
   </PropertyGroup>
 
   <PropertyGroup>

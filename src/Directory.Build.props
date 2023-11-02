@@ -8,6 +8,7 @@
     <RepositoryUrl>https://github.com/MatthewKing/KingMigrations</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>database;migrations</PackageTags>
+    <VersionPrefix>1.3.0</VersionPrefix>
   </PropertyGroup>
 
   <PropertyGroup>

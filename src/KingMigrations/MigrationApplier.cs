@@ -32,8 +32,17 @@ public abstract class MigrationApplier : IMigrationApplier
     /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task ApplyMigrationsAsync(DbConnection connection, IReadOnlyList<Migration> migrations)
     {
-        var migrationsInOrder = migrations.OrderBy(x => x.Id).ToArray();
-        if (!Validate(migrationsInOrder))
+        var migrationsToApply = migrations
+            .OrderBy(x => x.Id)
+            .TakeWhile(x => x.Enabled)
+            .ToArray();
+
+        if (migrationsToApply.Length == 0)
+        {
+            throw new MigrationException("No migrations available.");
+        }
+
+        if (!Validate(migrationsToApply))
         {
             throw new MigrationException("Not all required migrations are present.");
         }
@@ -48,7 +57,7 @@ public abstract class MigrationApplier : IMigrationApplier
             throw new MigrationException($"Migration table '{TableDefinition}' does not have the required schema.");
         }
 
-        foreach (var migration in migrationsInOrder)
+        foreach (var migration in migrationsToApply)
         {
             // If the migration has already been applied, skip to the next migration.
             if (await CheckIfMigrationIsAlreadyAppliedAsync(connection, migration).ConfigureAwait(false))

@@ -7,4 +7,6 @@ internal static class RegularExpressions
     public static Regex Id { get; } = new Regex("-- id: (?<id>.*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     public static Regex Description { get; } = new Regex("-- description: (?<description>.*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+    public static Regex Enabled { get; } = new Regex("-- enabled: (?<enabled>.*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 }

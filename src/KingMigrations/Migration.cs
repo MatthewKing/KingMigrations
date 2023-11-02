@@ -16,6 +16,12 @@ public class Migration
     public string? Description { get; set; }
 
     /// <summary>
+    /// Gets or sets a value determining whether the migration is enabled or not.
+    /// Default is true.
+    /// </summary>
+    public bool Enabled { get; set; } = true;
+
+    /// <summary>
     /// Gets the list of commands that comprise the migration.
     /// </summary>
     public IList<string> Commands { get; } = new List<string>();

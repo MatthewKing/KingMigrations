@@ -17,5 +17,12 @@ internal static class CommentLineHandler
             migration.Description = descriptionMatch.Groups["description"].Value;
             return;
         }
+
+        var enabledMatch = RegularExpressions.Enabled.Match(line);
+        if (enabledMatch.Success && bool.TryParse(enabledMatch.Groups["enabled"].Value, out var enabled))
+        {
+            migration.Enabled = enabled;
+            return;
+        }
     }
 }

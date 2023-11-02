@@ -1,4 +1,6 @@
-﻿namespace KingMigrations.MigrationParsers;
+﻿using KingMigrations.Helpers;
+
+namespace KingMigrations.MigrationParsers;
 
 /// <summary>
 /// An implementation of <see cref="IMigrationParser"/> that uses semicolons to delimit commands.
@@ -34,20 +36,7 @@ public class SemicolonDelimitedMigrationParser : IMigrationParser
 
             if (line.StartsWith("--"))
             {
-                var idMatch = RegularExpressions.Id.Match(line);
-                if (idMatch.Success && int.TryParse(idMatch.Groups["id"].Value, out var id))
-                {
-                    migration.Id = id;
-                    continue;
-                }
-
-                var descriptionMatch = RegularExpressions.Description.Match(line);
-                if (descriptionMatch.Success)
-                {
-                    migration.Description = descriptionMatch.Groups["description"].Value;
-                    continue;
-                }
-
+                CommentLineHandler.ParseCommentData(line, migration);
                 continue;
             }
 

@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace KingMigrations;
+namespace KingMigrations.Helpers;
 
 internal static class RegularExpressions
 {

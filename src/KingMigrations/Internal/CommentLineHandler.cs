@@ -5,7 +5,7 @@ internal static class CommentLineHandler
     public static void ParseCommentData(string line, Migration migration)
     {
         var idMatch = RegularExpressions.Id.Match(line);
-        if (idMatch.Success && int.TryParse(idMatch.Groups["id"].Value, out var id))
+        if (idMatch.Success && long.TryParse(idMatch.Groups["id"].Value, out var id))
         {
             migration.Id = id;
             return;

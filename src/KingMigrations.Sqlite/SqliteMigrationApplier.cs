@@ -94,23 +94,28 @@ public class SqliteMigrationApplier : MigrationApplier, IMigrationApplier
     }
 
     /// <summary>
-    /// Checks whether the specified migration has already been applied.
+    /// Returns the most recently applied migration ID.
     /// </summary>
     /// <param name="connection">The database connection.</param>
-    /// <param name="migration">The migration to check.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result is true if the migration has already been applied; otherwise, false.
+    /// The task result contains the migration ID.
     /// </returns>
-    protected override async Task<bool> CheckIfMigrationIsAlreadyAppliedAsync(DbConnection connection, Migration migration)
+    protected override async Task<long?> GetMostRecentMigrationId(DbConnection connection)
     {
         using var sqlCommand = connection.CreateCommand();
-        sqlCommand.CommandText = $"SELECT COUNT(*) FROM \"{TableDefinition.TableName}\" WHERE \"{TableDefinition.IdColumnName}\" = @ID;";
-        sqlCommand.AddParameter("ID", migration.Id);
+        sqlCommand.CommandText = $"SELECT MAX(\"{TableDefinition.IdColumnName}\") FROM \"{TableDefinition.TableName}\";";
 
-        var result = await sqlCommand.ExecuteScalarAsync().ConfigureAwait(false);
+        var result = await sqlCommand.ExecuteScalarAsync();
 
-        return Convert.ToByte(result) > 0;
+        if (result is null || result == DBNull.Value)
+        {
+            return null;
+        }
+        else
+        {
+            return Convert.ToInt64(result);
+        }
     }
 
     /// <summary>
@@ -148,7 +153,7 @@ public class SqliteMigrationApplier : MigrationApplier, IMigrationApplier
             applyScriptCommand.CommandText = $"INSERT INTO \"{TableDefinition.TableName}\" (\"{TableDefinition.IdColumnName}\", \"{TableDefinition.DescriptionColumnName}\", \"{TableDefinition.TimestampColumnName}\") VALUES (@Id, @Description, @Timestamp);";
             applyScriptCommand.AddParameter("Id", migration.Id);
             applyScriptCommand.AddParameter("Description", migration.Description);
-            applyScriptCommand.AddParameter("Timestamp", DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFFzzz"));
+            applyScriptCommand.AddParameter("Timestamp", DateTime.UtcNow.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
 
             await applyScriptCommand.ExecuteNonQueryAsync().ConfigureAwait(false);
         }

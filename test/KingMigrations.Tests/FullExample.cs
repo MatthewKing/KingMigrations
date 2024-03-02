@@ -49,7 +49,7 @@ public class FullExample
             command.AddParameter("ID", migration.Id);
 
             var expectedResult = migration.Id;
-            var actualResult = Convert.ToInt32(await command.ExecuteScalarAsync());
+            var actualResult = Convert.ToInt64(await command.ExecuteScalarAsync());
             Assert.Equal(expectedResult, actualResult);
         }
     }

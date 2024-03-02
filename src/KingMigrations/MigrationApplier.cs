@@ -42,11 +42,6 @@ public abstract class MigrationApplier : IMigrationApplier
             throw new MigrationException("No migrations available.");
         }
 
-        if (!Validate(migrationsToApply))
-        {
-            throw new MigrationException("Not all required migrations are present.");
-        }
-
         var status = await GetMigrationTableStatusAsync(connection).ConfigureAwait(false);
         if (!status.IsPresent)
         {
@@ -57,14 +52,10 @@ public abstract class MigrationApplier : IMigrationApplier
             throw new MigrationException($"Migration table '{TableDefinition}' does not have the required schema.");
         }
 
-        foreach (var migration in migrationsToApply)
-        {
-            // If the migration has already been applied, skip to the next migration.
-            if (await CheckIfMigrationIsAlreadyAppliedAsync(connection, migration).ConfigureAwait(false))
-            {
-                continue;
-            }
+        var mostRecentMigrationId = await GetMostRecentMigrationId(connection).ConfigureAwait(false);
 
+        foreach (var migration in migrationsToApply.Where(x => !mostRecentMigrationId.HasValue || mostRecentMigrationId.Value < x.Id))
+        {
             await ApplyMigrationAsync(connection, migration).ConfigureAwait(false);
         }
     }
@@ -89,15 +80,14 @@ public abstract class MigrationApplier : IMigrationApplier
     protected abstract Task CreateMigrationTableAsync(DbConnection connection);
 
     /// <summary>
-    /// Checks whether the specified migration has already been applied.
+    /// Returns the most recently applied migration ID.
     /// </summary>
     /// <param name="connection">The database connection.</param>
-    /// <param name="migration">The migration to check.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result is true if the migration has already been applied; otherwise, false.
+    /// The task result contains the migration ID.
     /// </returns>
-    protected abstract Task<bool> CheckIfMigrationIsAlreadyAppliedAsync(DbConnection connection, Migration migration);
+    protected abstract Task<long?> GetMostRecentMigrationId(DbConnection connection);
 
     /// <summary>
     /// Applies the specified migration to the database.
@@ -106,17 +96,4 @@ public abstract class MigrationApplier : IMigrationApplier
     /// <param name="migration">The migration to apply.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
     protected abstract Task ApplyMigrationAsync(DbConnection connection, Migration migration);
-
-    /// <summary>
-    /// Validate the list of migrations.
-    /// </summary>
-    /// <param name="migrations">The list of migrations to validate.</param>
-    /// <returns>true if the migrations are valid; otherwise, false.</returns>
-    protected bool Validate(IReadOnlyList<Migration> migrations)
-    {
-        // A list of migrations of length n should always have IDs 1..n
-        var expectedIds = Enumerable.Range(1, migrations.Count);
-        var actualIds = migrations.Select(m => m.Id).ToArray();
-        return Enumerable.SequenceEqual(expectedIds, actualIds);
-    }
 }

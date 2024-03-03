@@ -1,6 +1,4 @@
-using System;
 using System.Threading.Tasks;
-using KingMigrations.Extensions;
 using KingMigrations.MigrationParsers;
 using KingMigrations.MigrationSources;
 using KingMigrations.Sqlite;
@@ -23,34 +21,10 @@ public class FullExample
         var migrator = new SqliteMigrationApplier();
         await migrator.ApplyMigrationsAsync(connection, migrationSource);
 
-        var expectedTables = new[]
-        {
-            (migrator.TableDefinition.TableName, true),
-            ("Table1", true),
-            ("Table2", true),
-            ("Table3", false),
-        };
-
-        foreach (var (tableName, shouldExist) in expectedTables)
-        {
-            var command = connection.CreateCommand();
-            command.CommandText = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = @TableName;";
-            command.AddParameter("TableName", tableName);
-
-            var expectedResult = shouldExist ? tableName : null;
-            var actualResult = await command.ExecuteScalarAsync();
-            Assert.Equal(expectedResult, actualResult);
-        }
-
-        foreach (var migration in await migrationSource.GetMigrationsAsync())
-        {
-            var command = connection.CreateCommand();
-            command.CommandText = $"SELECT \"{migrator.TableDefinition.IdColumnName}\" FROM \"{migrator.TableDefinition.TableName}\" WHERE \"{migrator.TableDefinition.IdColumnName}\" = @ID;";
-            command.AddParameter("ID", migration.Id);
-
-            var expectedResult = migration.Id;
-            var actualResult = Convert.ToInt64(await command.ExecuteScalarAsync());
-            Assert.Equal(expectedResult, actualResult);
-        }
+        TestHelper.AssertThatTableExists(connection, migrator.TableDefinition.TableName);
+        TestHelper.AssertThatTableExists(connection, "Table1");
+        TestHelper.AssertThatTableExists(connection, "Table2");
+        TestHelper.AssertThatTableDoesNotExist(connection, "Table3");
+        TestHelper.AssertThatMigrationsHaveBeenApplied(connection, migrator.TableDefinition, await migrationSource.GetMigrationsAsync());
     }
 }

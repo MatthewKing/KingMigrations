@@ -6,7 +6,7 @@ using Xunit;
 
 namespace KingMigrations.Tests;
 
-public class MigrationSources
+public class MigrationSourceTests
 {
     [Fact]
     public async Task DirectoryMigrationSource()

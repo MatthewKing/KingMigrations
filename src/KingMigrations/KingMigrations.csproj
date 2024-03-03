@@ -14,4 +14,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="KingMigrations.Tests" />
+  </ItemGroup>
+
 </Project>

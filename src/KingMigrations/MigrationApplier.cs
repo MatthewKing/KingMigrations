@@ -53,10 +53,14 @@ public abstract class MigrationApplier : IMigrationApplier
         }
 
         var mostRecentMigrationId = await GetMostRecentMigrationId(connection).ConfigureAwait(false);
-
-        foreach (var migration in migrationsToApply.Where(x => !mostRecentMigrationId.HasValue || mostRecentMigrationId.Value < x.Id))
+        foreach (var migration in migrationsToApply.Where(x => (!mostRecentMigrationId.HasValue || mostRecentMigrationId.Value < x.Id)))
         {
             await ApplyMigrationAsync(connection, migration).ConfigureAwait(false);
+
+            // After applying a migration, we do need to re-check the most recent migration ID, just in case
+            // there was a manual command in the migration itself that caused an update beyond what would
+            // be usually expected.
+            mostRecentMigrationId = await GetMostRecentMigrationId(connection).ConfigureAwait(false);
         }
     }
 
@@ -68,7 +72,7 @@ public abstract class MigrationApplier : IMigrationApplier
     /// A task that represents the asynchronous operation.
     /// The task result contains the migration table status.
     /// </returns>
-    protected abstract Task<MigrationTableStatus> GetMigrationTableStatusAsync(DbConnection connection);
+    internal protected abstract Task<MigrationTableStatus> GetMigrationTableStatusAsync(DbConnection connection);
 
     /// <summary>
     /// Creates the migration table.
@@ -77,7 +81,7 @@ public abstract class MigrationApplier : IMigrationApplier
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// </returns>
-    protected abstract Task CreateMigrationTableAsync(DbConnection connection);
+    internal protected abstract Task CreateMigrationTableAsync(DbConnection connection);
 
     /// <summary>
     /// Returns the most recently applied migration ID.
@@ -87,7 +91,7 @@ public abstract class MigrationApplier : IMigrationApplier
     /// A task that represents the asynchronous operation.
     /// The task result contains the migration ID.
     /// </returns>
-    protected abstract Task<long?> GetMostRecentMigrationId(DbConnection connection);
+    internal protected abstract Task<long?> GetMostRecentMigrationId(DbConnection connection);
 
     /// <summary>
     /// Applies the specified migration to the database.
@@ -95,5 +99,5 @@ public abstract class MigrationApplier : IMigrationApplier
     /// <param name="connection">The database connection.</param>
     /// <param name="migration">The migration to apply.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    protected abstract Task ApplyMigrationAsync(DbConnection connection, Migration migration);
+    internal protected abstract Task ApplyMigrationAsync(DbConnection connection, Migration migration);
 }

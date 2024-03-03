@@ -82,7 +82,7 @@ public class SqliteMigrationApplier : MigrationApplier, IMigrationApplier
 
                 await sqlCommand.ExecuteNonQueryAsync().ConfigureAwait(false);
             }
-            catch (DbException ex)
+            catch (Exception ex)
             {
                 transaction.Rollback();
 
@@ -138,7 +138,7 @@ public class SqliteMigrationApplier : MigrationApplier, IMigrationApplier
 
                 await sqlCommand.ExecuteNonQueryAsync().ConfigureAwait(false);
             }
-            catch (DbException ex)
+            catch (Exception ex)
             {
                 transaction.Rollback();
 
@@ -157,7 +157,7 @@ public class SqliteMigrationApplier : MigrationApplier, IMigrationApplier
 
             await applyScriptCommand.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
-        catch (DbException ex)
+        catch (Exception ex)
         {
             transaction.Rollback();
 

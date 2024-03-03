@@ -84,7 +84,7 @@ public class PostgreSqlMigrationApplier : MigrationApplier
 
                 await sqlCommand.ExecuteNonQueryAsync().ConfigureAwait(false);
             }
-            catch (DbException ex)
+            catch (Exception ex)
             {
                 transaction.Rollback();
 
@@ -140,7 +140,7 @@ public class PostgreSqlMigrationApplier : MigrationApplier
 
                 await sqlCommand.ExecuteNonQueryAsync().ConfigureAwait(false);
             }
-            catch (DbException ex)
+            catch (Exception ex)
             {
                 transaction.Rollback();
 
@@ -159,7 +159,7 @@ public class PostgreSqlMigrationApplier : MigrationApplier
 
             await applyScriptCommand.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
-        catch (DbException ex)
+        catch (Exception ex)
         {
             transaction.Rollback();
 
